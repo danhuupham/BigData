@@ -1,0 +1,5 @@
+BichHa	44284.5
+PhanAn	73112.0
+PhanDuy	30267.0
+comrang	68722.0
+danpham	55970.5
