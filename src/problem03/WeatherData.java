@@ -3,7 +3,6 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
@@ -15,7 +14,6 @@ public class WeatherData {
         job.setJarByClass(WeatherData.class);
 
         job.setMapperClass(Map.class);
-        job.setReducerClass(Reduce.class);
 
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(Text.class);
@@ -41,13 +39,6 @@ public class WeatherData {
             if (tempMin < 10.0) {
                 context.write(new Text(date), new Text("Cold Day"));
             }
-        }
-    }
-
-    public static class Reduce extends Reducer<Text, Text, Text, Text> {
-        public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException {
-            String temperature = values.iterator().next().toString();
-            context.write(key, new Text(temperature));
         }
     }
 }
